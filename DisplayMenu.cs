@@ -1,3 +1,5 @@
+using System.IO.MemoryMappedFiles;
+
 public class DisplayMenu
 {
     public void DisplayMenuItems(List<MenuItem> menuItems)
@@ -17,7 +19,9 @@ public class DisplayMenu
         {
             case "1":
                 Console.WriteLine("View all products!");
-                break;
+                    ProductInventory productInventory = new ProductInventory();
+                    productInventory.ViewAllProducts();
+                    break;
             case "2":
                 Console.WriteLine("Add a product to inventory!");
                 break;
