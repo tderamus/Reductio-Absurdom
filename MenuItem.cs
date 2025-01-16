@@ -47,7 +47,11 @@ public class DisplayMenu
                     updateProductDetails.UpdateProduct();
                     break;
                 case "5":
-                    Console.WriteLine("Exit product inventory application!");
+                    Console.WriteLine("View products by product type!");
+                    ProductInventory lookupProductByType = new ProductInventory();
+                    lookupProductByType.ViewProductsByType();
+                    break;case "6":
+                    Console.WriteLine("Exit products inventory application!");
                     exit = true;
                     break;
                 default:
