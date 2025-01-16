@@ -5,12 +5,21 @@ potions, enchanted objects, and wands. When adding a product to the inventory,
 the user should be able to choose from these options to add a product type id to the new product.
  */
 
+using System;
+
 public class Product
 {
     public string Name { get; set; }
     public decimal Price { get; set; }
     public bool IsAvailable { get; set; }
     public int ProductTypeId { get; set; }
+    public DateTime DateStocked { get; set; }
+    public int DaysOnShelf
+    { get
+        { TimeSpan timeOnShelf = DateTime.Now.Subtract(DateStocked);
+        return timeOnShelf.Days;
+        }
+    }
 }
 
 public class ProductType
@@ -27,18 +36,18 @@ public class ProductInventory
     {
         Products = new List<Product>
         {
-            new Product() { Name = "Wizard Robe", Price = 50.00m, IsAvailable = true, ProductTypeId = 1 },
-            new Product() { Name = "Healing Potion", Price = 10.00m, IsAvailable = true, ProductTypeId = 2 },
-            new Product() { Name = "Magic Mirror", Price = 100.00m, IsAvailable = false, ProductTypeId = 3 },
-            new Product() { Name = "Phoenix Feather Wand", Price = 35.00m, IsAvailable = false, ProductTypeId = 4 },
-            new Product() { Name = "River Robe", Price = 55.00m, IsAvailable = false, ProductTypeId = 1 },
-            new Product() { Name = "Sleeping Potion", Price = 65.00m, IsAvailable = true, ProductTypeId = 2 },
-            new Product() { Name = "Past Mirror", Price = 85.00m, IsAvailable = true, ProductTypeId = 3 },
-            new Product() { Name = "Skyline Wand", Price = 95.00m, IsAvailable = false, ProductTypeId = 4 },
-            new Product() { Name = "Warlock Robe", Price = 45.00m, IsAvailable = true, ProductTypeId = 1 },
-            new Product() { Name = "Beauty Potion", Price = 25.00m, IsAvailable = false, ProductTypeId = 2 },
-            new Product() { Name = "Future Mirror", Price = 75.00m, IsAvailable = true, ProductTypeId = 3 },
-            new Product() { Name = "Blueface Wand", Price = 95.00m, IsAvailable = false, ProductTypeId = 4 }
+            new Product() { Name = "Wizard Robe", Price = 50.00m, IsAvailable = true, ProductTypeId = 1, DateStocked = new DateTime(2020, 01, 20) },
+            new Product() { Name = "Healing Potion", Price = 10.00m, IsAvailable = true, ProductTypeId = 2, DateStocked = new DateTime(2022, 04, 29) },
+            new Product() { Name = "Magic Mirror", Price = 100.00m, IsAvailable = false, ProductTypeId = 3, DateStocked = new DateTime(2022, 04, 29) },
+            new Product() { Name = "Phoenix Feather Wand", Price = 35.00m, IsAvailable = false, ProductTypeId = 4, DateStocked = new DateTime(2022, 04, 29) },
+            new Product() { Name = "River Robe", Price = 55.00m, IsAvailable = false, ProductTypeId = 1, DateStocked = new DateTime(2024, 06, 18) },
+            new Product() { Name = "Sleeping Potion", Price = 65.00m, IsAvailable = true, ProductTypeId = 2, DateStocked = new DateTime(2024, 06, 18) },
+            new Product() { Name = "Past Mirror", Price = 85.00m, IsAvailable = true, ProductTypeId = 3, DateStocked = new DateTime(2024, 06, 18) },
+            new Product() { Name = "Skyline Wand", Price = 95.00m, IsAvailable = false, ProductTypeId = 4, DateStocked = new DateTime(2024, 06, 18) },
+            new Product() { Name = "Warlock Robe", Price = 45.00m, IsAvailable = true, ProductTypeId = 1, DateStocked = new DateTime(2023, 12, 02) },
+            new Product() { Name = "Beauty Potion", Price = 25.00m, IsAvailable = false, ProductTypeId = 2, DateStocked = new DateTime(2023, 12, 02) },
+            new Product() { Name = "Future Mirror", Price = 75.00m, IsAvailable = true, ProductTypeId = 3, DateStocked = new DateTime(2023, 12, 02) },
+            new Product() { Name = "Blueface Wand", Price = 95.00m, IsAvailable = false, ProductTypeId = 4, DateStocked = new DateTime(2023, 12, 02) }
         };
 
         ProductTypes = new List<ProductType>
@@ -49,6 +58,9 @@ public class ProductInventory
             new ProductType() { ProductTypeId = 4, ProductTypeName = "Wands" }
         };
     }
+
+    
+
     public void AddProduct()
     {
         Product newProduct = new Product();
@@ -71,7 +83,14 @@ public class ProductInventory
     {
         foreach (Product product in Products)
         {
-            Console.WriteLine($"Name: {product.Name}, Price: {product.Price}, Available: {product.IsAvailable}, Product Type: {ProductTypes.Find(pt => pt.ProductTypeId == product.ProductTypeId).ProductTypeName}");
+            DateTime today = DateTime.Now;
+            int timeOnShelf = (today - product.DateStocked).Days;
+
+            Console.WriteLine(@$"Name: {product.Name}, Price: {product.Price}, 
+Available: {product.IsAvailable}, 
+Product Type: {ProductTypes.Find(pt => pt.ProductTypeId == product.ProductTypeId).ProductTypeName}");
+            Console.WriteLine($"Days on shelf: {timeOnShelf}");
+            Console.WriteLine();
         }
     }
     public void DeleteProduct()
