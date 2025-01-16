@@ -115,4 +115,18 @@ public class ProductInventory
             Console.WriteLine("Product not found.");
         }
     }
+    public void ViewProductsByType()
+    {
+        Console.WriteLine("Choose a product type id to view products:");
+        foreach (ProductType productType in ProductTypes)
+        {
+            Console.WriteLine($"{productType.ProductTypeId}. {productType.ProductTypeName}");
+        }
+        int productTypeId = Convert.ToInt32(Console.ReadLine());
+        List<Product> productsByType = Products.FindAll(p => p.ProductTypeId == productTypeId);
+        foreach (Product product in productsByType)
+        {
+            Console.WriteLine($"Name: {product.Name}, Price: {product.Price}, Available: {product.IsAvailable}, Product Type: {ProductTypes.Find(pt => pt.ProductTypeId == product.ProductTypeId).ProductTypeName}");
+        }
+    }
 }

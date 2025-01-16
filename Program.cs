@@ -9,6 +9,7 @@ List<MenuItem> menuItems = new List<MenuItem>
     new MenuItem() { Option = "Add a product to inventory!" },
     new MenuItem() { Option = "Delete a product from inventory!" },
     new MenuItem() { Option = "Update a product's details!" },
+    new MenuItem() { Option = "View products by product type!" },
     new MenuItem() { Option = "Exit product inventory application!" },
 };
 
