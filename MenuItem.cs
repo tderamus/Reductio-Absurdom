@@ -15,8 +15,9 @@ public class DisplayMenu
     {
         bool exit = false;
 
-        while (!exit)
+        do
         {
+
             Console.WriteLine("\nPlease select an option from the menu below:");
             for (int i = 0; i < menuItems.Count; i++)
             {
@@ -50,7 +51,8 @@ public class DisplayMenu
                     Console.WriteLine("View products by product type!");
                     ProductInventory lookupProductByType = new ProductInventory();
                     lookupProductByType.ViewProductsByType();
-                    break;case "6":
+                    break;
+                case "6":
                     Console.WriteLine("Exit products inventory application!");
                     exit = true;
                     break;
@@ -59,7 +61,7 @@ public class DisplayMenu
                     break;
             }
 
-        }
+        } while (!exit);
 
     }
 }
