@@ -66,6 +66,13 @@ public class ProductInventory
         Product newProduct = new Product();
         Console.WriteLine("Enter the name of the product:");
         newProduct.Name = Console.ReadLine();
+
+        if (Products.Exists(p => p.Name == newProduct.Name))
+        {
+            Console.WriteLine("This product already exists.");
+            return;
+        }
+
         Console.WriteLine("Enter the price of the product:");
         newProduct.Price = Convert.ToDecimal(Console.ReadLine());
         Console.WriteLine("Is the product available? (true/false):");
